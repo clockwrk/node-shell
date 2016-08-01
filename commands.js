@@ -1,64 +1,73 @@
 var fs = require("fs");
-
+var request = require("request");
 module.exports = {
-	pwd: function (file) {
-		process.stdout.write(process.cwd());
-		process.stdout.write("\nprompt > ");
+	pwd: function (file, done) {
+		var output = process.cwd();
+		done(output);
 	},
-	date: function (file){
-		var currentDate = new Date().toUTCString();
-		process.stdout.write(currentDate);
-		process.stdout.write("\nprompt > ");
+	date: function (file, done){
+		var output = new Date().toUTCString();
+		done(output);
 	},
-	ls: function (file){
+	ls: function (file, done){
+		var output = "";
 		fs.readdir(".", function(err, files){
 			if(err) throw err;
 			files.forEach(function(file){
-				process.stdout.write(file.toString() + "\n");
+				output += file.toString() + "\n";
 			});
-			process.stdout.write("\nprompt > ");
+			done(output);
 		});
 	},
-	echo: function (file){
-		
+	echo: function (file, done){
+		var output;
 		file = file.replace("$","");
-
 		if(process.env.hasOwnProperty(file)){
-			process.stdout.write(process.env[file]);
+			output = process.env[file];
 		} else {
-			process.stdout.write(file);
+			output = file;
 		}
-		process.stdout.write("\nprompt > ");
+		done(output);
 	},
-	cat: function(file){
+	cat: function(file, done){
+		var output;
 		fs.readFile(file, "utf-8", function (err, data){
 			if (err) throw err;
-			process.stdout.write(data);
-			process.stdout.write("\nprompt > ");
+			output= data;
+			done(output);
 		});
 	},
-	head: function(file){
+	head: function(file, done){
+		var output;
 		fs.readFile(file, "utf-8", function (err, data){
 			if (err) throw err;
 			data = data.split("\n");
 			for(var i=0; i<5; i++){
-				process.stdout.write(data[i]+"\n");
+				output += data[i]+"\n";
 			}
-			process.stdout.write("\nprompt > ");
+			done(output);
 		});
 	},
-	tail: function(file){
+	tail: function(file, done){
+		var output;
 		fs.readFile(file, "utf-8", function (err, data){
 			if (err) throw err;
 			data = data.split("\n");
 			for(var i=data.length-6; i<data.length; i++){
-				process.stdout.write(data[i]+"\n");
+				output += data[i]+"\n";
 			}
-			process.stdout.write("\nprompt > ");
+			done(output);
 		});
 	},
-	curl: function(file){
-		
+	curl: function(file, done){
+		var output;
+		request.get(file, function(err, response, body){
+			if(err) throw err;
+			if(response.statusCode === 200){
+				output += body;
+			}
+			done(output);
+		});
 	}
 
 };

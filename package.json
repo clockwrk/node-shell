@@ -4,13 +4,12 @@
   "description": "a simple bash shell",
   "main": "bash.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/clockwrk/node-shell.git"
   },
-  "author": "",
+  "author": "Jose & Chris",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/clockwrk/node-shell/issues"

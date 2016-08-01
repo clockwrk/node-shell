@@ -1,4 +1,10 @@
 var commands = require("./commands.js");
+var done = function (output){
+	process.stdout.write(output);
+	process.stdout.write("\nprompt > ");
+};
+
+
 process.stdout.write("prompt > ");
 
 process.stdin.on("data", function (data){
@@ -6,27 +12,29 @@ process.stdin.on("data", function (data){
 	var cmd = input.shift();
 	file = input.join(" ");
 	if(cmd==="pwd"){
-		commands.pwd(file);
+		commands.pwd(file, done);
 	}
 	if(cmd === "date"){
-		commands.date(file);
+		commands.date(file, done);
 	}
 	if(cmd === "ls"){
-		commands.ls(file);
+		commands.ls(file, done);
 	}
 	if(cmd === "echo"){
-		commands.echo(file);
+		commands.echo(file, done);
 	}
 	if(cmd === "cat"){
-		commands.cat(file);
+		commands.cat(file, done);
 	}
 	if(cmd === "head"){
-		commands.head(file);
+		commands.head(file, done);
 	}
 	if(cmd === "tail"){
-		commands.tail(file);
+		commands.tail(file, done);
 	}
 	if(cmd == "curl"){
-		commands.curl(file);
+		commands.curl(file, done);
 	}
 });
+
+
