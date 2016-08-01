@@ -1,20 +1,32 @@
-//log using process.stdout.write();
-/*process.stdin.on('data', function (data) {
-	do stuff with data 
-})
-*/
-
+var commands = require("./commands.js");
 process.stdout.write("prompt > ");
 
 process.stdin.on("data", function (data){
-	var cmd = data.toString().trim();
-	//pwd
+	var input = data.toString().trim().split(" ");
+	var cmd = input.shift();
+	file = input.join(" ");
 	if(cmd==="pwd"){
-		process.stdout.write(process.cwd());
+		commands.pwd(file);
 	}
-	//date
 	if(cmd === "date"){
-		var currentDate = new Date().toUTCString();
-		process.stdout.write(currentDate);
+		commands.date(file);
+	}
+	if(cmd === "ls"){
+		commands.ls(file);
+	}
+	if(cmd === "echo"){
+		commands.echo(file);
+	}
+	if(cmd === "cat"){
+		commands.cat(file);
+	}
+	if(cmd === "head"){
+		commands.head(file);
+	}
+	if(cmd === "tail"){
+		commands.tail(file);
+	}
+	if(cmd == "curl"){
+		commands.curl(file);
 	}
 });
