@@ -1,0 +1,21 @@
+{
+  "name": "node-shell",
+  "version": "1.0.0",
+  "description": "a simple bash shell",
+  "main": "bash.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clockwrk/node-shell.git"
+  },
+  "author": "Jose & Chris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clockwrk/node-shell/issues"
+  },
+  "homepage": "https://github.com/clockwrk/node-shell#readme",
+  "dependencies": {
+    "request": "^2.74.0"
+  }
+}
